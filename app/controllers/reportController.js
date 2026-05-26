@@ -66,12 +66,26 @@ class ReportController {
       const completedTasks = await Task.countDocuments({ user: req.user.id, status: 'Completed' });
       const pendingTasks = await Task.countDocuments({ user: req.user.id, status: 'Pending' });
 
+      // Calculate average time to complete tasks
+      const completedTasksList = await Task.find({ user: req.user.id, status: 'Completed' });
+      let totalTime = 0;
+      let avgTimeInHours = 0;
+      if (completedTasksList.length > 0) {
+        completedTasksList.forEach(task => {
+          const timeDiff = new Date(task.updatedAt) - new Date(task.createdAt);
+          totalTime += timeDiff;
+        });
+        const avgTimeMs = totalTime / completedTasksList.length;
+        avgTimeInHours = (avgTimeMs / (1000 * 60 * 60)).toFixed(2); // converting to hours
+      }
+
       res.status(200).json({
         success: true,
         data: {
           totalTasks,
           completedTasks,
-          pendingTasks
+          pendingTasks,
+          averageCompletionTimeHours: avgTimeInHours
         }
       });
     } catch (error) {

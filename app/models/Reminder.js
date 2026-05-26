@@ -20,6 +20,11 @@ const reminderSchema = new mongoose.Schema({
     enum: ['Notification', 'Email', 'Repeating'],
     default: 'Notification',
   },
+  frequency: {
+    type: String,
+    enum: ['None', 'Daily', 'Weekly', 'Monthly'],
+    default: 'None',
+  },
   isSent: {
     type: Boolean,
     default: false,

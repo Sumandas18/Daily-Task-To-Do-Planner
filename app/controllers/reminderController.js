@@ -3,8 +3,8 @@ const Reminder = require('../models/Reminder');
 class ReminderController {
   static async addReminder(req, res) {
     try {
-      const { task, remindAt, type } = req.body;
-      const reminder = await Reminder.create({ user: req.user.id, task, remindAt, type });
+      const { task, remindAt, type, frequency } = req.body;
+      const reminder = await Reminder.create({ user: req.user.id, task, remindAt, type, frequency });
       res.status(201).json({ success: true, data: reminder });
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
