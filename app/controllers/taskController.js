@@ -13,6 +13,12 @@ class TaskController {
   static async addTask(req, res) {
     try {
       const { title, description, priority, dueDate, category, labels } = req.body;
+      
+      // without title we can't save task
+      if (!title) {
+        return res.status(400).json({ success: false, message: 'Title na dile task save hobe na' });
+      }
+
       const task = await Task.create({
         user: req.user.id,
         title,
@@ -24,7 +30,8 @@ class TaskController {
       });
       res.status(201).json({ success: true, data: task });
     } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+      console.log('Task create problem:', error);
+      res.status(500).json({ success: false, message: 'Task add korte problem hocche' });
     }
   }
 
