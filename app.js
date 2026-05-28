@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
 
-// sob route gulo ekhane include kora hocche
+// including all routes here
 const authRoutes = require('./app/routes/authRoutes');
 const userRoutes = require('./app/routes/userRoutes');
 const taskRoutes = require('./app/routes/taskRoutes');
@@ -40,7 +40,7 @@ const port = process.env.PORT || 4001;
 
 app.listen(port, (error) => {
     if (error) {
-        console.log("Server start hote somossa hocche:", error);
+        console.log("Error starting server:", error);
     } else {
         console.log(`Server is running on port ${port}`);
     }
