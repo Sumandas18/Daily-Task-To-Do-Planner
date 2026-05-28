@@ -84,17 +84,17 @@ class AuthController {
         return res.status(401).json({ success: false, message: 'Invalid credentials' });
       }
 
-      // email verify na korle login korte dibo na
+      // do not allow login if email is not verified
       if (!user.isVerified) {
         return res.status(401).json({ success: false, message: 'Please verify your email first' });
       }
 
       const token = AuthController.getSignedJwtToken(user._id);
-      // res.cookie('token', token, { httpOnly: true }); // pore cookie te pathabo bhabchi
+      // res.cookie('token', token, { httpOnly: true }); // thinking of sending in cookie later
       res.status(200).json({ success: true, token });
     } catch (error) {
       console.log('Login error:', error);
-      res.status(500).json({ success: false, message: 'Login e somossa hocche' });
+      res.status(500).json({ success: false, message: 'Problem logging in' });
     }
   }
 

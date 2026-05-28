@@ -16,7 +16,7 @@ class TaskController {
       
       // without title we can't save task
       if (!title) {
-        return res.status(400).json({ success: false, message: 'Title na dile task save hobe na' });
+        return res.status(400).json({ success: false, message: 'Title is required to save task' });
       }
 
       const task = await Task.create({
@@ -30,8 +30,8 @@ class TaskController {
       });
       res.status(201).json({ success: true, data: task });
     } catch (error) {
-      console.log('Task create problem:', error);
-      res.status(500).json({ success: false, message: 'Task add korte problem hocche' });
+      console.log('Task creation problem:', error);
+      res.status(500).json({ success: false, message: 'Problem adding task' });
     }
   }
 
