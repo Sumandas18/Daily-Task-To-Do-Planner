@@ -7,15 +7,14 @@ const MongodbUrl = process.env.MONGODB_URL
 
 const dataConnection = async () => {
     try {
-        // mongodb connection
         const connection = await mongoose.connect(MongodbUrl)
         if(connection){
-            console.log('DB Connect hoye geche boss! ✅');
+            console.log('DB Connect ');
         } else {
-            console.log('DB connection lagte parche na...');
+            console.log('DB connection failed');
         }
     } catch (error) {
-        console.log('DB error asche:', error);
+        console.log('DB error :', error);
     }
 }
 
